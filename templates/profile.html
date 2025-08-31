@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Profile: {{ user.username }}</h2>
+<img src='{{ user.profile_pic }}' alt='avatar' width='120' height='120' onerror="this.style.display='none'"><br>
+{% if current_user.id == user.id %}
+<form method="post" enctype="multipart/form-data">
+  <label>Bio <textarea name="bio">{{ current_user.bio }}</textarea></label><br>
+  <label>Institution <input name="institution" value="{{ current_user.institution }}"></label><br>
+  <label>Year/Level <input name="year_level" value="{{ current_user.year_level }}"></label><br>
+  <label>Dark mode <input type="checkbox" name="dark_mode" value="1" {% if current_user.dark_mode %}checked{% endif %}></label><br>
+  <label>Avatar <input type="file" name="avatar"></label><br>
+  <button>Save</button>
+</form>
+{% else %}
+  <p>{{ user.bio }}</p>
+{% endif %}
+{% endblock %}

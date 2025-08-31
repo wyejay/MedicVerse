@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>MedPeer</h1>
+<form method="get" action="{{ url_for('main.index') }}">
+  <input name="q" placeholder="Search posts..." value="{{ request.args.get('q','') }}">
+  <button>Search</button>
+</form>
+<section class="feed">
+  {% for p in posts %}
+    <article class="post">
+      <h3>{{ p.title or 'Untitled' }}</h3>
+      <p>{{ p.body[:400] }}</p>
+      <small>By {{ p.author.username }} · {{ p.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+      {% if p.attachments.count() > 0 %}
+        <div class="attachments">
+          {% for f in p.attachments %}
+            <a href="{{ url_for('main.download_file', file_id=f.id) }}">{{ f.filename }}</a><br>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </article>
+  {% else %}
+    <p>No posts yet.</p>
+  {% endfor %}
+</section>
+{% endblock %}
