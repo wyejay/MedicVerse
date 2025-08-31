@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h2>Admin Dashboard</h2>
-<h3>Recent Users</h3>
-<ul>{% for u in users %}<li>{{ u.username }} - {{ u.email }}</li>{% endfor %}</ul>
-<h3>Recent Posts</h3>
-<ul>{% for p in posts %}<li>{{ p.title }} by {{ p.author.username }}</li>{% endfor %}</ul>
-{% endblock %}
